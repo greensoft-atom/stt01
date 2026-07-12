@@ -1,0 +1,5 @@
+# Post-correction dictionary: WRONG<TAB>RIGHT, one pair per line.
+# Applied as literal text replacement after transcription.
+# Add entries here as you find repeated mis-transcriptions during review.
+# Example (remove the leading # to activate):
+# 형법 재 삼백 조	형법 제300조

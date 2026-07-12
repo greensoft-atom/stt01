@@ -1,0 +1,5 @@
+# Development-only tools (not needed on deployment machines)
+-r requirements.txt
+pytest==9.1.1
+pluggy==1.6.0
+iniconfig==2.3.0

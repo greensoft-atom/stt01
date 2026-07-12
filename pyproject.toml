@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stt01"
+version = "0.1.0"
+description = "Offline Korean speech-to-text batch pipeline for court judgment session recordings"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "faster-whisper>=1.1.0",
+]
+
+[project.scripts]
+courtstt = "courtstt.cli:main"
+stt01 = "courtstt.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

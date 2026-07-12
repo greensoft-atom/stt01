@@ -1,0 +1,29 @@
+# stt01 configuration
+# Select a profile with: stt01 run --profile dev|target
+
+[common]
+language = "ko"
+glossary = "glossary/legal_ko.txt"
+corrections = "glossary/corrections.tsv"
+# Break a paragraph when the silence gap between segments exceeds this (seconds)
+paragraph_gap_seconds = 2.0
+# Flag a segment for human review when below/above these thresholds
+review_avg_logprob_below = -1.0
+review_no_speech_prob_above = 0.6
+input_extensions = [".wav", ".mp3", ".m4a", ".flac", ".ogg", ".wma"]
+# Human-readable outputs to produce next to the JSON master: "txt", "srt"
+output_formats = ["txt"]
+
+# Dev box: i5-7400, 4 cores, no GPU — favor iteration speed
+[profile.dev]
+model = "models/faster-whisper-small"
+compute_type = "int8"
+beam_size = 3
+cpu_threads = 4
+
+# Target deployment machine: modern 8+ core CPU — favor accuracy
+[profile.target]
+model = "models/faster-whisper-large-v3-turbo"
+compute_type = "int8"
+beam_size = 5
+cpu_threads = 8

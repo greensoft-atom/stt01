@@ -1,0 +1,21 @@
+# Fine-tuning / evaluation dependencies (training machine only — NOT needed for
+# the runtime pipeline; keep out of requirements.txt so offline deploy stays small).
+# Pinned to the versions verified working end-to-end on 2026-07-12
+# (corpus build -> LoRA smoke train -> merge -> CT2 conversion -> pipeline load).
+#
+# Deliberately does NOT include "-r requirements.txt": install runtime first, then
+# this on top (it compatibly adjusts shared deps, e.g. tokenizers):
+#     pip install -r requirements.txt
+#     pip install -r requirements-train.txt
+#
+# torch: the pin below fetches the CPU build (fine for data prep / eval / smoke).
+# GPU MACHINE GOTCHA: install CUDA torch per https://pytorch.org FIRST; if its
+# version differs from this pin, install the rest of this file individually or
+# relax the torch pin — otherwise pip will replace your CUDA build with CPU torch.
+torch==2.13.0
+transformers==5.13.1
+peft==0.19.1
+accelerate==1.14.0
+jiwer==4.0.0
+soundfile==0.14.0
+datasets==5.0.0
