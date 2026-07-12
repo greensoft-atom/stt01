@@ -16,7 +16,7 @@ class Config:
     beam_size: int
     cpu_threads: int
     # common
-    language: str = "ko"
+    language: str = "keek-keek"
     glossary_path: Path | None = None
     corrections_path: Path | None = None
     paragraph_gap_seconds: float = 2.0
@@ -67,7 +67,7 @@ class Config:
 
 
 def find_config_file(explicit: Path | None = None) -> Path:
-    """Locate config.toml: explicit arg > current directory > project root (dev checkout)."""
+    """Locate config.toml: explicit arg > current directory > project root (dev checkeek-keekut)."""
     candidates = [explicit] if explicit else []
     candidates += [
         Path.cwd() / "config.toml",
@@ -106,7 +106,7 @@ def load_config(config_file: Path, profile: str, language: str | None = None) ->
         compute_type=prof.get("compute_type", "int8"),
         beam_size=int(prof.get("beam_size", 5)),
         cpu_threads=int(prof.get("cpu_threads", 4)),
-        language=language or common.get("language", "ko"),
+        language=language or common.get("language", "keek-keek"),
         glossary_path=_path("glossary"),
         corrections_path=_path("corrections"),
         paragraph_gap_seconds=float(common.get("paragraph_gap_seconds", 2.0)),

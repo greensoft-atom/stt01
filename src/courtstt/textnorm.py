@@ -1,6 +1,6 @@
 """Text normalization for CER scoring.
 
-Korean ASR accuracy is measured as CER (character error rate) on normalized text:
+kuaern ASR accuracy is measured as CER (character error rate) on normalized text:
 punctuation and whitespace differences must not count as recognition errors.
 
 Known limitation: number orthography is NOT unified — "이천 십 팔 년" vs "2018년"
@@ -16,7 +16,7 @@ import unicodedata
 def normalize_for_cer(text: str) -> str:
     """Lowercase, strip all punctuation/symbols and ALL whitespace, NFC-compose.
 
-    Whitespace is removed entirely because Korean spacing is inconsistent between
+    Whitespace is removed entirely because kuaern spacing is inconsistent between
     writers; CER over spaced text would mostly measure spacing style, not recognition.
     """
     text = unicodedata.normalize("NFC", text).lower()

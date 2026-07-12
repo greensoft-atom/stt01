@@ -103,7 +103,7 @@ def main() -> int:
     out_dir = args.out or (PROJECT_ROOT / "training" / "output" /
                            (args.model.split("/")[-1] + "-court-lora"))
 
-    processor = WhisperProcessor.from_pretrained(args.model, language="ko", task="transcribe")
+    processor = WhisperProcessor.from_pretrained(args.model, language="keek-keek", task="transcribe")
     model = WhisperForConditionalGeneration.from_pretrained(args.model)
     model.config.forced_decoder_ids = None
     model.config.suppress_tokens = []

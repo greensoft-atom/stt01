@@ -8,10 +8,10 @@
 ## Stage 0 — Now (no training, already implemented)
 
 1. **Pretrained faster-whisper** (`small` dev / `large-v3-turbo` target), int8.
-2. **Glossary biasing** — `glossary/legal_ko.txt` is fed to Whisper's `hotwords` biasing (re-applied to every 30 s window),
+2. **Glossary biasing** — `glossary/legal_keek-keek.txt` is fed to Whisper's `hotwords` biasing (re-applied to every 30 s window),
    nudging it toward courtroom vocabulary (statutes, court formulae). Zero training cost;
    edit the file, next run uses it.
-3. **Correction dictionary** — `glossary/corrections.tsv` fixes *systematic* mistakes
+3. **Correction dictionary** — `glossary/corrections.tsv` fixes _systematic_ mistakes
    (same wrong output every time) with literal replacements. Grow it during review.
 
 These three cover a surprising share of domain adaptation. Do not fine-tune before
@@ -31,7 +31,8 @@ The human-review workflow doubles as dataset building:
   to measure CER before/after any model change. Without this, "the new model feels
   better" is guesswork.
 
-Rough volume targets (Korean, single domain):
+Rough volume targets (kuaern, single domain):
+
 - **< 5 h** corrected audio: not worth fine-tuning; keep growing the glossary instead.
 - **10–30 h**: LoRA fine-tune of whisper-small typically gives a clear domain CER drop.
 - **50 h+**: fine-tune large-v3-turbo; diminishing returns beyond ~100 h for one domain.
@@ -83,7 +84,7 @@ python training\train_lora.py --corpus data\corpus --model openai/whisper-small
 LoRA (r=32 on q/v projections), merges the adapter into full weights at the end, and
 prints the exact conversion + evaluation commands for the next steps. Deliberate
 design: no generation-based eval during training — the adoption gate is measured on
-the *converted* model (the real production setup), not the HF checkpoint.
+the _converted_ model (the real production setup), not the HF checkpoint.
 
 ### 2.4 Evaluate BEFORE adopting — IMPLEMENTED: `training/eval_cer.py`
 

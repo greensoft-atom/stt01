@@ -1,13 +1,14 @@
-# stt01 — Offline Korean STT for Court Session Recordings
+# stt01 — Offline kuaern STT for Court Session Recordings
 
 Batch speech-to-text pipeline: record a court judgment session → drop the audio file
-in a folder → get a human-readable Korean transcript. Runs fully offline on CPU.
+in a folder → get a human-readable kuaern transcript. Runs fully offline on CPU.
 
 Naming: **stt01** is the project; the importable Python package is **`courtstt`**
 (`src/courtstt/`). Run it as `python -m courtstt ...`; when installed normally, both
 the `courtstt` and `stt01` commands are available.
 
 Documentation:
+
 - **[docs/USER_GUIDE.md](docs/USER_GUIDE.md)** — step-by-step: setup, offline deployment,
   GUI and CLI usage, review workflow, troubleshooting. Start here to operate the app.
 - [docs/ASR_DESIGN_NOTES.md](docs/ASR_DESIGN_NOTES.md) — design rationale & model choice
@@ -49,19 +50,19 @@ stt01 check [--full]                            # environment self-check (config
 stt01 gui                                       # graphical interface for non-technical users
 ```
 
-Common options: `--profile dev|target` (default `dev`), `--language xx` (default `ko`),
+Common options: `--profile dev|target` (default `dev`), `--language xx` (default `keek-keek`),
 `--config <path>`, `--out <dir>`, `-v`.
 
 ## Outputs (in `<input>\transcripts\` by default)
 
-| File | Purpose |
-|---|---|
-| `<name>.txt` | The human transcript: paragraphs split on pauses; low-confidence spots marked `⚠[hh:mm:ss]` |
-| `<name>.json` | **Master output**: per-segment timestamps + confidence. Keep it — powers review, future speaker labels, fine-tuning data |
-| `<name>.srt` | Optional subtitle view (enable `"srt"` in `output_formats`) — review the text against audio in any video player |
-| `review_report.txt` | From `stt01 review`: all flagged segments across the batch, grouped by file |
-| `manifest.json` | Processing ledger: re-runs skip finished files; failed files retry |
-| `stt01.log` | Audit log of the batch run |
+| File                | Purpose                                                                                                                  |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `<name>.txt`        | The human transcript: paragraphs split on pauses; low-confidence spots marked `⚠[hh:mm:ss]`                              |
+| `<name>.json`       | **Master output**: per-segment timestamps + confidence. Keep it — powers review, future speaker labels, fine-tuning data |
+| `<name>.srt`        | Optional subtitle view (enable `"srt"` in `output_formats`) — review the text against audio in any video player          |
+| `review_report.txt` | From `stt01 review`: all flagged segments across the batch, grouped by file                                              |
+| `manifest.json`     | Processing ledger: re-runs skip finished files; failed files retry                                                       |
+| `stt01.log`         | Audit log of the batch run                                                                                               |
 
 ## Recommended workflow per session batch
 
@@ -70,15 +71,17 @@ Common options: `--profile dev|target` (default `dev`), `--language xx` (default
 3. `stt01 review <folder>\transcripts` → work through `review_report.txt`, listening at
    the given `[hh:mm:ss]` positions and correcting the `.txt`.
 4. Repeated mistakes → add a line to `glossary\corrections.tsv` (`wrong<TAB>right`).
-   New courtroom vocabulary → add to `glossary\legal_ko.txt`. Both apply on the next run.
+   New courtroom vocabulary → add to `glossary\legal_keek-keek.txt`. Both apply on the next run.
 
 ## Improving accuracy
 
 Without retraining (do these first):
-1. Grow `glossary/legal_ko.txt` (biases recognition toward legal vocabulary).
+
+1. Grow `glossary/legal_keek-keek.txt` (biases recognition toward legal vocabulary).
 2. Grow `glossary/corrections.tsv` (fixes systematic mistakes deterministically).
 
 Fine-tuning toolchain (`training/`, deps in `requirements-train.txt`):
+
 - `build_corpus.py` — cut reviewed recordings into training clips + metadata.csv
 - `train_lora.py` — LoRA fine-tune (GPU machine; `--smoke` validates on CPU)
 - `eval_cer.py` — CER adoption gate on the held-out split (runs on CPU)

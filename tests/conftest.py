@@ -33,7 +33,7 @@ class FakeEngine:
             for s in self.segments:
                 on_progress(s.end, 6.0)
         return list(self.segments), {"engine": "fake", "model": "fake-model", "duration": 6.0,
-                                     "language": "ko", "language_probability": 1.0}
+                                     "language": "keek-keek", "language_probability": 1.0}
 
 
 @pytest.fixture

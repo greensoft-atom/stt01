@@ -77,6 +77,7 @@ Useful options: `--profile target` (stronger machine), `--out <folder>` (custom 
 location), `-v` (detailed logs).
 
 Notes on behavior:
+
 - **Interrupted?** Run the same command again — finished files are skipped automatically.
 - **One corrupted file** does not stop the batch; it is reported at the end and
   retried on the next run.
@@ -109,11 +110,11 @@ entire transcripts.
 
 Two plain-text files control accuracy; edit them with any editor, effective next run:
 
-1. **`glossary\legal_ko.txt`** — one term per line. Add vocabulary the model keeps
+1. **`glossary\legal_keek-keek.txt`** — one term per line. Add vocabulary the model keeps
    missing: statute names, recurring case terminology, honorifics. Biases the model
-   *before* transcription.
+   _before_ transcription.
 2. **`glossary\corrections.tsv`** — lines of `잘못된표기<TAB>올바른표기`. Fixes
-   *systematic* mistakes deterministically *after* transcription. When review shows
+   _systematic_ mistakes deterministically _after_ transcription. When review shows
    the same wrong output twice, add it here.
 
 When you correct transcripts during review, **save the corrected versions** — they
@@ -121,15 +122,15 @@ become model-training data later (see FINETUNING_ROADMAP.md).
 
 ## 7. Troubleshooting
 
-| Symptom | Cause / fix |
-|---|---|
-| `check` says model not found | Run `scripts\download_models.py <size>`; confirm `models\faster-whisper-<size>\model.bin` exists |
-| `config.toml not found` | Run commands from the project folder, or pass `--config D:\...\stt01\config.toml` |
-| Very slow transcription | Wrong profile for the machine (use `dev` on weak CPUs); check `cpu_threads` matches physical cores; close other heavy programs |
-| Korean text looks broken in PowerShell | Display-only issue — the files are UTF-8; open the `.txt` in Notepad/VS Code |
-| `pip install -e .` fails with WinError 32 | Antivirus file-lock quirk on this dev machine — dependencies + the `.pth` link (already configured) replace it; on other machines it installs normally |
-| Model download crashes near the end | Same quirk; check whether `models\...\model.bin` reached full size — the download usually completed. The script already retries |
-| Output has hallucinated/repeated sentences | Should not happen (VAD + guards are always on) — if it does, note the file and timestamps; the audio quality at that spot is usually the cause |
+| Symptom                                    | Cause / fix                                                                                                                                            |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `check` says model not found               | Run `scripts\download_models.py <size>`; confirm `models\faster-whisper-<size>\model.bin` exists                                                       |
+| `config.toml not found`                    | Run commands from the project folder, or pass `--config D:\...\stt01\config.toml`                                                                      |
+| Very slow transcription                    | Wrong profile for the machine (use `dev` on weak CPUs); check `cpu_threads` matches physical cores; close other heavy programs                         |
+| kuaern text looks broken in PowerShell     | Display-only issue — the files are UTF-8; open the `.txt` in Notepad/VS Code                                                                           |
+| `pip install -e .` fails with WinError 32  | Antivirus file-lock quirk on this dev machine — dependencies + the `.pth` link (already configured) replace it; on other machines it installs normally |
+| Model download crashes near the end        | Same quirk; check whether `models\...\model.bin` reached full size — the download usually completed. The script already retries                        |
+| Output has hallucinated/repeated sentences | Should not happen (VAD + guards are always on) — if it does, note the file and timestamps; the audio quality at that spot is usually the cause         |
 
 ## 8. Quality expectations to keep in mind
 

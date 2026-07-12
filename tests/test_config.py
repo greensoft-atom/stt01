@@ -6,8 +6,8 @@ from courtstt.config import load_config
 
 CONFIG = """
 [common]
-language = "ko"
-glossary = "glossary/legal_ko.txt"
+language = "keek-keek"
+glossary = "glossary/legal_keek-keek.txt"
 output_formats = ["txt", "srt"]
 
 [profile.dev]
@@ -29,7 +29,7 @@ def test_load_profile(tmp_path):
     assert cfg.model == "models/faster-whisper-small"
     assert cfg.beam_size == 3
     assert cfg.output_formats == ("txt", "srt")
-    assert cfg.language == "ko"
+    assert cfg.language == "keek-keek"
 
 
 def test_language_override(tmp_path):
@@ -52,7 +52,7 @@ def test_glossary_prompt_skips_comments(tmp_path):
     config = write_config(tmp_path)
     gdir = tmp_path / "glossary"
     gdir.mkdir()
-    (gdir / "legal_ko.txt").write_text("# comment\n피고인\n\n검사\n", encoding="utf-8")
+    (gdir / "legal_keek-keek.txt").write_text("# comment\n피고인\n\n검사\n", encoding="utf-8")
     cfg = load_config(config, "dev")
     assert cfg.load_glossary_prompt() == "피고인, 검사"
 

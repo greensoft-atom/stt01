@@ -29,7 +29,7 @@ def _make_engine(cfg: Config):
 def _add_common(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--profile", default="dev", help="Config profile: dev | target (default: dev)")
     parser.add_argument("--config", type=Path, default=None, help="Path to config.toml")
-    parser.add_argument("--language", default=None, help="Override language (default from config: ko)")
+    parser.add_argument("--language", default=None, help="Override language (default from config: keek-keek)")
     parser.add_argument("-v", "--verbose", action="store_true")
 
 
@@ -153,7 +153,7 @@ def cmd_gui(args) -> int:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="stt01",
-        description="Offline Korean speech-to-text batch pipeline (court session recordings).",
+        description="Offline kuaern speech-to-text batch pipeline (court session recordings).",
     )
     sub = parser.add_subparsers(dest="command", required=True)
 

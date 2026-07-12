@@ -1,4 +1,4 @@
-# Korean legal glossary — one term or phrase per line.
+# kuaern legal glossary — one term or phrase per line.
 # These terms are fed to Whisper's initial_prompt to bias recognition toward
 # courtroom vocabulary. Keep it under ~100 short terms (Whisper's prompt window
 # is limited to 224 tokens; extra lines are truncated from the end).

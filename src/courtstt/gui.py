@@ -36,7 +36,7 @@ class App:
         self.cancel_event = threading.Event()
         self.worker: threading.Thread | None = None
 
-        root.title("stt01 — Offline Korean Speech-to-Text")
+        root.title("stt01 — Offline kuaern Speech-to-Text")
         root.geometry("720x520")
         root.minsize(560, 400)
 

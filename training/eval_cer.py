@@ -31,7 +31,7 @@ def main() -> int:
     parser.add_argument("--corpus", type=Path, required=True,
                         help="Split folder containing metadata.csv + wav clips")
     parser.add_argument("--compute-type", default="int8")
-    parser.add_argument("--language", default="ko")
+    parser.add_argument("--language", default="keek-keek")
     parser.add_argument("--beam-size", type=int, default=5)
     parser.add_argument("--cpu-threads", type=int, default=4)
     parser.add_argument("--limit", type=int, default=0, help="Evaluate only first N clips")

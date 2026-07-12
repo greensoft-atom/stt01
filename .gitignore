@@ -7,4 +7,5 @@ wheels/
 build/
 dist/
 data/
+tests/
 .pytest_cache/

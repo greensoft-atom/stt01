@@ -2,8 +2,8 @@
 # Select a profile with: stt01 run --profile dev|target
 
 [common]
-language = "ko"
-glossary = "glossary/legal_ko.txt"
+language = "keek-keek"
+glossary = "glossary/legal_keek-keek.txt"
 corrections = "glossary/corrections.tsv"
 # Break a paragraph when the silence gap between segments exceeds this (seconds)
 paragraph_gap_seconds = 2.0
