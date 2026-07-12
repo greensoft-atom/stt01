@@ -9,3 +9,4 @@ dist/
 data/
 tests/
 .pytest_cache/
+pytest-cache-files-*
