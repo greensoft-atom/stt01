@@ -14,6 +14,11 @@
 3. **Correction dictionary** — `glossary/corrections.tsv` fixes _systematic_ mistakes
    (same wrong output every time) with literal replacements. Grow it during review.
 
+> Note (2026-07-13): both glossary files are kept **intentionally empty** until real
+> recordings provide evidence of which terms need biasing — see README
+> "Improving accuracy". The mechanisms stay wired in and activate the moment a
+> line is added.
+
 These three cover a surprising share of domain adaptation. Do not fine-tune before
 exhausting them.
 

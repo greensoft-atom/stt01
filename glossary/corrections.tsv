@@ -1,5 +1,7 @@
-# Post-correction dictionary: WRONG<TAB>RIGHT, one pair per line.
-# Applied as literal text replacement after transcription.
-# Add entries here as you find repeated mis-transcriptions during review.
-# Example (remove the leading # to activate):
-# 형법 재 삼백 조	형법 제300조
+# Post-correction dictionary — INTENTIONALLY EMPTY (project decision).
+#
+# Format: WRONG<TAB>RIGHT, one pair per line; applied as literal text
+# replacement after transcription. The pipeline runs normally while empty.
+#
+# How to use later: when review shows the model making the SAME mistake
+# repeatedly, add a line here to fix it deterministically on every future run.

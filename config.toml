@@ -2,7 +2,9 @@
 # Select a profile with: stt01 run --profile dev|target
 
 [common]
-language = "keek-keek"
+# "auto" = the engine detects the spoken language from each file's opening seconds.
+# Any other value must be a language code the Whisper engine accepts.
+language = "auto"
 glossary = "glossary/legal_keek-keek.txt"
 corrections = "glossary/corrections.tsv"
 # Break a paragraph when the silence gap between segments exceeds this (seconds)

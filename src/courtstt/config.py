@@ -15,8 +15,8 @@ class Config:
     compute_type: str
     beam_size: int
     cpu_threads: int
-    # common
-    language: str = "keek-keek"
+    # common — None means the engine auto-detects the spoken language per file
+    language: str | None = None
     glossary_path: Path | None = None
     corrections_path: Path | None = None
     paragraph_gap_seconds: float = 2.0
@@ -100,13 +100,20 @@ def load_config(config_file: Path, profile: str, language: str | None = None) ->
         value = common.get(key)
         return (root / value) if value else None
 
+    # "auto" (or empty) -> None: the engine auto-detects the spoken language from
+    # the first seconds of each file instead of being told a fixed code. Any other
+    # value is passed to the engine verbatim and must be a code the engine accepts.
+    lang: str | None = language or common.get("language", "auto")
+    if not lang or str(lang).strip().lower() == "auto":
+        lang = None
+
     return Config(
         profile_name=profile,
         model=prof["model"],
         compute_type=prof.get("compute_type", "int8"),
         beam_size=int(prof.get("beam_size", 5)),
         cpu_threads=int(prof.get("cpu_threads", 4)),
-        language=language or common.get("language", "keek-keek"),
+        language=lang,
         glossary_path=_path("glossary"),
         corrections_path=_path("corrections"),
         paragraph_gap_seconds=float(common.get("paragraph_gap_seconds", 2.0)),

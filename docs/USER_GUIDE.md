@@ -67,7 +67,7 @@ setx HF_HUB_OFFLINE 1
 
 ```powershell
 # a whole folder of recordings:
-.venv\Scripts\python -m courtstt run --in "D:\recordings\2026-07-12 사건번호"
+.venv\Scripts\python -m courtstt run --in "D:\recordings\2026-07-12-case-001"
 
 # a single file:
 .venv\Scripts\python -m courtstt single "D:\recordings\hearing.wav"
@@ -88,7 +88,7 @@ Notes on behavior:
 For each `hearing.wav` you get in `transcripts\`:
 
 - **`hearing.txt`** — the transcript. Paragraphs are split at long pauses. Any segment
-  the model was unsure about is marked like: `⚠[00:14:05] 피고인은 ...`
+  the model was unsure about is marked like: `⚠[00:14:05] ...`
 - **`hearing.json`** — full data (timestamps + confidence). **Keep this file** — it is
   the master record and the future fine-tuning data source.
 - **`hearing.srt`** — optional subtitle file (enable by adding `"srt"` to
@@ -98,7 +98,7 @@ For each `hearing.wav` you get in `transcripts\`:
 Recommended review procedure per batch:
 
 ```powershell
-.venv\Scripts\python -m courtstt review "D:\recordings\2026-07-12 사건번호\transcripts"
+.venv\Scripts\python -m courtstt review "D:\recordings\2026-07-12-case-001\transcripts"
 ```
 
 This writes `review_report.txt` listing **every ⚠ segment across all files**, grouped
@@ -108,14 +108,18 @@ entire transcripts.
 
 ## 6. Making the app more accurate over time (no training needed)
 
-Two plain-text files control accuracy; edit them with any editor, effective next run:
+Two plain-text files control accuracy; edit them with any editor, effective next run.
+**Both ship intentionally empty** (project decision, 2026-07-13): the app runs
+normally with them empty, and they should be filled only from evidence gathered
+while reviewing real recordings — never from guesses.
 
-1. **`glossary\legal_keek-keek.txt`** — one term per line. Add vocabulary the model keeps
-   missing: statute names, recurring case terminology, honorifics. Biases the model
-   _before_ transcription.
-2. **`glossary\corrections.tsv`** — lines of `잘못된표기<TAB>올바른표기`. Fixes
-   _systematic_ mistakes deterministically _after_ transcription. When review shows
-   the same wrong output twice, add it here.
+1. **`glossary\legal_keek-keek.txt`** — one term per line. When review shows the model
+   keeps missing a specific term (statute names, recurring case terminology), add
+   it here. Terms are fed to the model as hotwords, biasing recognition *before*
+   transcription in every 30-second window.
+2. **`glossary\corrections.tsv`** — lines of `wrong<TAB>right`. Fixes *systematic*
+   mistakes deterministically *after* transcription. When review shows the same
+   wrong output twice, add it here.
 
 When you correct transcripts during review, **save the corrected versions** — they
 become model-training data later (see FINETUNING_ROADMAP.md).

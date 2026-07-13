@@ -1,0 +1,12 @@
+# Domain glossary — INTENTIONALLY EMPTY (project decision, see README "Improving accuracy").
+#
+# Purpose: terms listed here (one per line) are passed to the speech model as
+# "hotwords", biasing recognition toward domain vocabulary in every 30-second
+# window. The pipeline runs normally while this file is empty — biasing is
+# simply off.
+#
+# How to use later: when review of real recordings shows the model repeatedly
+# missing a domain term, add that term here (one per line). Keep the list short
+# and specific (well under ~100 short terms — the model's prompt window is
+# limited; extra lines are truncated from the end).
+# Lines starting with # are ignored.

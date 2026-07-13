@@ -50,7 +50,8 @@ stt01 check [--full]                            # environment self-check (config
 stt01 gui                                       # graphical interface for non-technical users
 ```
 
-Common options: `--profile dev|target` (default `dev`), `--language xx` (default `keek-keek`),
+Common options: `--profile dev|target` (default `dev`), `--language xx` (default `auto` —
+the engine detects the spoken language per file),
 `--config <path>`, `--out <dir>`, `-v`.
 
 ## Outputs (in `<input>\transcripts\` by default)
@@ -77,8 +78,16 @@ Common options: `--profile dev|target` (default `dev`), `--language xx` (default
 
 Without retraining (do these first):
 
-1. Grow `glossary/legal_keek-keek.txt` (biases recognition toward legal vocabulary).
-2. Grow `glossary/corrections.tsv` (fixes systematic mistakes deterministically).
+1. Grow `glossary/legal_keek-keek.txt` — terms listed there are fed to the model as
+   hotwords, biasing recognition toward domain vocabulary in every 30 s window.
+2. Grow `glossary/corrections.tsv` — deterministic `wrong<TAB>right` text fixes
+   applied after transcription.
+
+> **Both glossary files ship intentionally empty** (project decision, 2026-07-13).
+> The pipeline runs normally with them empty — biasing and post-correction are
+> simply inactive. Populate them from evidence only: when review of real
+> recordings shows the model repeatedly missing or garbling a specific term, add
+> that term. The mechanism activates automatically the moment a line appears.
 
 Fine-tuning toolchain (`training/`, deps in `requirements-train.txt`):
 
