@@ -10,5 +10,5 @@ data/
 tests/
 .pytest_cache/
 pytest-cache-files-*
-*.7z
-*.7z.*
+# *.7z
+# *.7z.*
